@@ -1,0 +1,9 @@
+Author: Tianyuan Li
+
+Work on the lab individually.
+
+Use about 6.5 hours on the entire lab.
+
+A problem came across when I wrote the function print_result. At first, I only used one parameter option_num and then found out that there were no declarations for the parameters used in function minimum, maximum and four other functions for calculations. Then I realized the function print_out was calling other functions. After I added three other parameters in the function print_result, it went well.
+
+

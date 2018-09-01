@@ -1,0 +1,97 @@
+Please enter data about the books.
+
+
+Please enter an integer between 1 and 9 to select an operation on the data:
+
+Book list:
+Adventures of Tom Sawyer
+David Copperfield
+Jane Eyre
+Les Miserables
+Siddhartha
+The Rubaiyat
+
+
+Please enter an integer between 1 and 9 to select an operation on the data:
+
+Total revenue: 1148.96
+
+Please enter an integer between 1 and 9 to select an operation on the data:
+
+Total wholesale cost: 1386.90
+
+Please enter an integer between 1 and 9 to select an operation on the data:
+
+Total profit: -237.94
+
+Please enter an integer between 1 and 9 to select an operation on the data:
+
+Total numbers of books sold = 32
+
+Please enter an integer between 1 and 9 to select an operation on the data:
+
+Average profit: -7.44
+
+Please enter an integer between 1 and 9 to select an operation on the data:
+
+Please enter an integer between 1 and 9 to select an operation on the data:
+
+Book list:
+Adventures of Tom Sawyer
+David Copperfield
+Jane Eyre
+Les Miserables
+Romance of the Three Kingdoms
+Siddhartha
+The Rubaiyat
+
+
+Please enter an integer between 1 and 9 to select an operation on the data:
+
+Please enter the book stock number of the book you wish to delete,followed by enter.
+
+Please enter an integer between 1 and 9 to select an operation on the data:
+
+Book list:
+David Copperfield
+Jane Eyre
+Les Miserables
+Romance of the Three Kingdoms
+Siddhartha
+The Rubaiyat
+
+
+Please enter an integer between 1 and 9 to select an operation on the data:
+
+Please enter the book stock number of the book you wish to delete,followed by enter.
+
+Please enter an integer between 1 and 9 to select an operation on the data:
+
+Book list:
+David Copperfield
+Jane Eyre
+Romance of the Three Kingdoms
+Siddhartha
+The Rubaiyat
+
+
+Please enter an integer between 1 and 9 to select an operation on the data:
+
+Please enter the book stock number of the book you wish to delete,followed by enter.
+
+Please enter an integer between 1 and 9 to select an operation on the data:
+
+Book list:
+David Copperfield
+Jane Eyre
+Romance of the Three Kingdoms
+Siddhartha
+
+
+Please enter an integer between 1 and 9 to select an operation on the data:
+
+Please enter the book stock number of the book you wish to delete,followed by enter.
+
+ERROR: Book stock number 2016 was not found in the list!
+
+Please enter an integer between 1 and 9 to select an operation on the data:

@@ -1,0 +1,9 @@
+Author: Tianyuan Li
+
+Work on the lab individually.
+
+Use about 8 hours on the entire lab.
+
+When doing the part1 of lab3, I came across a problem on adding a new book into the list. In the test data, there was a book "Romance of the Three Kingdoms". When I tried to add this book into the list, the program added "uo Guanzhong"(part of the author's name of the book) into the title of the book. After I adding getchar() to consume a new line, the program worked well. The other problems were the type of arguments and they were easily solved.
+
+For part2, I used two ways. One is using functions with void arguments and the other with int arguments. They both worked.

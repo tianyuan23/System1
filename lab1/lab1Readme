@@ -1,0 +1,9 @@
+Author: Tianyuan Li
+
+Work on the lab individually.
+
+Use about 4.5 hours on the entire lab.
+
+A problem came cross in part1. After entering the size of the input, the first number to put in was always 0. Then a getchar() was put before the "for" loop and the problem was solved.
+
+

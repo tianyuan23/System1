@@ -1,0 +1,7 @@
+Author: Tianyuan Li
+
+Work on the lab individually.
+
+Use about 5 hours on the entire lab.
+
+It was a pain to find what went wrong in the function. I spent most of time finding mistakes on move operations. I made mistakes on moving address to a register where actually the value in the address should be moved. Figuring that out, the others went well.

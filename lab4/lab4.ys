@@ -1,0 +1,183 @@
+.pos 0x400
+.align 4
+Array:
+	.long 12
+	.long -2
+	.long 16
+	.long -10
+	.long 13
+	.long -27
+	.long 10
+
+Done:
+
+.pos 0x500
+.align 4
+Output:
+
+.pos 0xF00
+.align 4
+Stack:
+
+.pos 0x0
+Main:
+	irmovl $Stack, %ebp
+	rrmovl %ebp, %esp
+	irmovl $Array, %ecx	#set ecx to point to array	
+	irmovl $Output, %edx	#set edx to point to output
+	irmovl $Done, %eax	#set eax to point to done
+
+	pushl %edx		#push output pointer onto stack, to preserve it
+	pushl %ecx		#push second parameter onto stack, array pointer
+	pushl %eax		#push first parameter onto the stack, done pointer
+	call Count		#call function Count
+	rrmovl %eax, %esi	#move result into callee save register
+	popl %eax		#restore value to caller save register
+	popl %ecx		#restore value to caller save register
+	popl %edx
+	rrmovl %esi, %eax	#set eax to point to the size of array
+	rmmovl %esi, (%edx)	#write result to output
+
+	pushl %edx		#push output pointer onto stack, to preserve it
+	pushl %ecx		#push second parameter onto stack, array pointer
+	pushl %eax		#push first parameter onto the stack, size
+	call Min		#call function Min
+	rrmovl %eax, %esi	#move result into callee save register
+	popl %eax		#restore value to caller save register
+	popl %ecx		#restore value to caller save register
+	popl %edx
+	rmmovl %esi, 4(%edx)	#write result to output
+
+	pushl %edx		#push output pointer onto stack, to preserve it
+	pushl %ecx		#push second parameter onto stack, array pointer
+	pushl %eax		#push first parameter onto the stack, size
+	call Max		#call function Max
+	rrmovl %eax, %esi	#move result into callee save register
+	popl %eax		#restore value to caller save register
+	popl %ecx		#restore value to caller save register
+	popl %edx
+	rmmovl %esi, 8(%edx)	#write result to output
+
+	pushl %edx		#push output pointer onto stack, to preserve it
+	pushl %ecx		#push third parameter onto stack, array pointer
+	pushl %eax		#push second parameter onto the stack, size
+	irmovl $12, %eax	#set eax to point to constant 12
+	addl %eax, %edx		#update the output address for function Reverse
+	pushl %edx		#push first parameter onto stack, addresss where function Reverse should begin writing elements
+	call Reverse		#call function Reverse
+	popl %edx		#restore value to caller save register
+	popl %eax		#restore value to caller save register
+	popl %ecx		#restore value to caller save register
+	popl %edx		#restore value(initial address of output) to caller save register
+halt
+
+Count:
+	pushl %ebp		#save caller’s ebp
+	rrmovl %esp, %ebp	#set function’s frame pointer
+	mrmovl 12(%ebp), %edx	#get second parameter, array pointer
+	mrmovl 8(%ebp), %ecx	#get first parameter, done pointer
+	pushl %edi		#save callee save register 
+	irmovl $0, %eax		#initialize count to 0
+loop_count:
+	irmovl $1, %edi		#move constant into register to increment
+	pushl %ecx		#save address of done
+	subl %edx, %ecx		#compare the array point to done pointer
+	jle exit_count		#jump out of loop if no elements remaining
+	addl %edi, %eax		#increment count
+	irmovl $4, %edi		#move constant into register to increment pointer
+	addl %edi, %edx		#increment pointer to point to next element
+	popl %ecx		#restore address of done
+	jmp loop_count		#jump to top of loop
+exit_count:
+	popl %edi		#restore callee save register
+	rrmovl %ebp, %esp	#move stack pointer back to saved caller’s ebp
+	popl %ebp		#restore caller’s ebp
+	ret			#return to caller’s code at return address
+
+Min:
+	pushl %ebp		#save caller’s ebp
+	rrmovl %esp, %ebp	#set function’s frame pointer
+	mrmovl 12(%ebp), %edx	#get second parameter, array pointer
+	mrmovl 8(%ebp), %ecx	#get first parameter, size
+	pushl %edi		#save callee save register
+	pushl %esi		#save callee save register
+	mrmovl (%edx), %eax	#initialize first element in array to eax
+loop_min:
+	irmovl $1, %edi		#move constant into register to increment
+	subl %edi, %ecx		#decrement number of remaining elements
+	jl exit_min		#jump out of loop if no elements remaining
+	irmovl $4, %edi		#move constant into register to increment pointer
+	addl %edi, %edx		#increment pointer to point to next element
+	mrmovl (%edx), %esi	#move next array element into esi
+	pushl %eax		#save eax
+	subl %esi, %eax		#compare two elements
+	popl %eax		#restore eax
+	cmovg %esi, %eax	#move smaller element to eax
+	jmp loop_min		#jump to top of loop
+exit_min:
+	popl %esi		#restore callee save register
+	popl %edi		#restore callee save register
+	rrmovl %ebp, %esp	#move stack pointer back to saved caller’s ebp
+	popl %ebp		#restore caller’s ebp
+	ret			#return to caller’s code at return address
+
+Max:
+	pushl %ebp		#save caller’s ebp
+	rrmovl %esp, %ebp	#set function’s frame pointer
+	mrmovl 12(%ebp), %edx	#get second parameter, array pointer
+	mrmovl 8(%ebp), %ecx	#get first parameter, size
+	pushl %edi		#save callee save register
+	pushl %esi		#save callee save register
+	mrmovl (%edx), %eax	#initialize first element in array to eax
+loop_max:
+	irmovl $1, %edi		#move constant into register to increment
+	subl %edi, %ecx		#decrement number of remaining elements
+	jl exit_max		#jump out of loop if no elements remaining
+	irmovl $4, %edi		#move constant into register to increment pointer
+	addl %edi, %edx		#increment pointer to point to next element
+	mrmovl (%edx), %esi	#move next array element into esi
+	pushl %eax		#save eax
+	subl %esi, %eax		#compare two elements
+	popl %eax		#restore eax
+	cmovl %esi, %eax	#move larger element to eax
+	jmp loop_max		#jump to top of loop
+exit_max:
+	popl %esi		#restore callee save register
+	popl %edi		#restore callee save register
+	rrmovl %ebp, %esp	#move stack pointer back to saved caller’s ebp
+	popl %ebp		#restore caller’s ebp
+	ret			#return to caller’s code at return address
+
+Reverse:
+	pushl %ebp		#save caller’s ebp
+	rrmovl %esp, %ebp	#set function’s frame pointer
+	mrmovl 16(%ebp), %ecx	#get third parameter, array pointer
+	mrmovl 12(%ebp), %eax	#get second parameter, size
+	mrmovl 8(%ebp), %edx	#get first parameter, addresss where function Reverse should begin writing
+	pushl %edi		#save callee save register
+	pushl %esi		#save callee save register
+	rrmovl %eax, %esi	#move size to esi
+loop_find_last_element:
+	irmovl $1, %edi		#move constant into register to decrement
+	subl %edi, %esi		#decrement number of remaining elements
+	jle loop_write_values	#jump to another loop if no elements remaining
+	irmovl $4, %edi		#move constant into register to increment pointer
+	addl %edi, %ecx		#increment pointer to point to next element
+	jmp loop_find_last_element	#jump to top of loop
+loop_write_values:
+	mrmovl (%ecx), %esi	#move last array element into esi
+	rmmovl %esi, (%edx)	#write to output address of function Reverse
+	irmovl $1, %edi		#move constant into register to decrement
+	subl %edi, %eax		#decrement number of remaining elements
+	jl exit_reverse		#jump out of loop if no elements remaining
+	irmovl $4, %edi		#move constant into register to increment pointer
+	addl %edi, %edx		#increment pointer to point to next output address
+	subl %edi, %ecx		#decrement pointer to point to previous element
+	jmp loop_write_values	#jump to top of loop
+exit_reverse:
+	popl %esi		#restore callee save register
+	popl %edi		#restore callee save register
+	rrmovl %ebp, %esp	#move stack pointer back to saved caller’s ebp
+	popl %ebp		#restore caller’s ebp
+	ret			#return to caller’s code at return address
+

@@ -1,0 +1,8 @@
+Author: Tianyuan Li
+
+Work on the lab individually.
+
+Use about 5 hours on the entire lab.
+
+It was a pain to find what went wrong in the function. At first, I got stuck in the multArrays function for a segment fault. I was confused for a while and I figured it out after storing both operants of imul into registers and I got an output. However, it was not right. Then I checked for a long time and found out that I stored the address of sizeIntArray into a register instead of storing the sizeIntArray value into a register. Then it went well.
+
